@@ -1,25 +1,30 @@
-import logo from './logo.svg';
-import './App.css';
-
-function App() {
+import React, { useEffect, useState } from "react";
+import Map from "./Components/Map";
+import axios from "axios";
+const App = () => {
+  const [restaurants, setRestaurants] = useState([]);
+  const [loading, setLoading] = useState(false);
+  useEffect(() => {
+    async function fetchRestaurants() {
+      const { data } = await axios({
+        url: "http://localhost:3030/api/v1/restaurants",
+        method: "GET",
+      });
+      console.log({
+        data,
+      });
+      if (data.restaurants) setRestaurants(data.restaurants);
+    }
+    setLoading(true);
+    fetchRestaurants();
+    setLoading(false);
+  }, [setRestaurants]);
+  if (loading) return <div>Loading ...</div>;
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div>
+      <Map restaurants={restaurants} />
     </div>
   );
-}
+};
 
 export default App;
