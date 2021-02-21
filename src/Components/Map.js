@@ -22,9 +22,7 @@ const MapComponent = ({ google, restaurants }) => {
       });
     }
   }, []);
-  console.log({
-    restaurants,
-  });
+
   return (
     <div>
       <Map

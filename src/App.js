@@ -10,9 +10,7 @@ const App = () => {
         url: "http://localhost:3030/api/v1/restaurants",
         method: "GET",
       });
-      console.log({
-        data,
-      });
+
       if (data.restaurants) setRestaurants(data.restaurants);
     }
     setLoading(true);
